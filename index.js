@@ -25,11 +25,8 @@ app.listen(app.get('port'), () => {
 
 var GitHubApi = require('github');
 var request = require('request');
-var rp = require('request-promise');
-var markdown = require('markdown').markdown;
 var path = require('path');
 var marked = require('marked');
-var Promise = require("bluebird");
 
 // set the view engine to ejs
 app.set('view engine', 'ejs');
@@ -66,28 +63,8 @@ app.get('/CPE-CMU-26/pulls', function (req, res) {
                 created_at: pullRequest.created_at,
                 readme_link: req.get('host') + '/CPE-CMU-26/readme/' + pullRequest.user.login
             };
-            // ps.push(rp('https://raw.githubusercontent.com/' + objPullRequest.user + '/CPE-CMU-26/master/README.md'));
-            // rp('https://raw.githubusercontent.com/' + objPullRequest.user + '/CPE-CMU-26/master/README.md')
-            //     .then(function (htmlString) {
-            //         let answerMd = htmlString.substring(htmlString.lastIndexOf(headMd) + headMd.length, htmlString.indexOf("---\n"));
-            //         objPullRequest.readme_md = marked(answerMd);
-            //     });
             pullRequestList.push(objPullRequest);
-            // console.log(objPullRequest);
         });
-        // After loop
-        // ps = ps.map((promise) => promise.reflect());
-
-        // Promise.all(ps)
-        //     .each(pInspection => {
-        //         if (pInspection.isFulfilled()) {
-        //             readmeMdList.push(pInspection.value())
-        //         } else {
-        //             console.log(pInspection.reason());
-        //         }
-        //     })
-        //     .then(() => callback(readmeMdList)); // Or however you want to proceed
-
         // return res.send(pullRequestList);
         res.render('cpe-cmu-26-pulls', {
             pullRequestList: pullRequestList
@@ -98,14 +75,11 @@ app.get('/CPE-CMU-26/pulls', function (req, res) {
 app.get('/CPE-CMU-26/readme/:user', function (req, res) {
 
     request('https://raw.githubusercontent.com/' + req.params.user  + '/CPE-CMU-26/master/README.md', function (error, response, body) {
-        console.log('error:', error); // Print the error if one occurred
+        // console.log('error:', error); // Print the error if one occurred
         // console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
         // console.log('body:', body); // Print the HTML for the Google homepage.
         // return res.send(body);
-        // res.send(markdown.toHTML(body));
-
         let answerMd = body.substring(body.lastIndexOf(headMd) + headMd.length, body.indexOf("---\n"));
-
 
         res.render('index', { // passing params
             readme_md: marked(answerMd)

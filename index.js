@@ -25,10 +25,21 @@ app.listen(app.get('port'), () => {
 
 var GitHubApi = require('github');
 var request = require('request');
+var markdown = require('markdown').markdown;
+var path = require('path');
+var marked = require('marked');
+// set the view engine to ejs
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
+app.use('/public', express.static(process.cwd() + '/public'));
+
+// use res.render to load up an ejs view file
 
 const github = new GitHubApi({
     debug: true
 });
+
+const headMd = "> Please insert your answer between \\` and \\`.";
 
 app.get('/CPE-CMU-26/pulls', function (req, res) {
     // res.send('You are at /github endpoint.');
@@ -40,7 +51,6 @@ app.get('/CPE-CMU-26/pulls', function (req, res) {
         direction: 'asc'
     }).then(result => {
         const pullRequests = result.data;
-        return res.send(pullRequests);
         var pullRequestList = [];
         pullRequests.forEach(pullRequest => {
             let objPullRequest = {
@@ -50,9 +60,16 @@ app.get('/CPE-CMU-26/pulls', function (req, res) {
                 user: pullRequest.user.login,
                 created_at: pullRequest.created_at
             };
+            request('https://raw.githubusercontent.com/' + objPullRequest.user  + '/CPE-CMU-26/master/README.md', function (error, response, body) {
+                let answerMd = body.substring(body.lastIndexOf(headMd) + headMd.length, body.indexOf("---\n"));
+                objPullRequest.readme_md = marked(answerMd);
+            });
             pullRequestList.push(objPullRequest);
         });
-        return res.send(pullRequestList);
+        // return res.send(pullRequestList);
+        res.render('cpe-cmu-26-pulls', {
+            pullRequestList: pullRequestList
+        });
     });
 
     // github.repos.getContent({
@@ -86,7 +103,15 @@ app.get('/CPE-CMU-26/files', function (req, res) {
         console.log('error:', error); // Print the error if one occurred
         // console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
         // console.log('body:', body); // Print the HTML for the Google homepage.
-        return res.send(body);
+        // return res.send(body);
+        // res.send(markdown.toHTML(body));
+
+        let answerMd = body.substring(body.lastIndexOf(headMd) + headMd.length, body.indexOf("---\n"));
+
+
+        res.render('index', { // passing params
+            readme_md: marked(answerMd)
+        });
     });
 
     // github.repos.get({

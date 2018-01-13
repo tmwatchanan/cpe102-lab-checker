@@ -1,0 +1,33 @@
+<% include partials/header %>
+
+    <table>
+        <tr>
+            <th>Pull#</th>
+            <th>Title</th>
+            <th>Username</th>
+            <th>Created @</th>
+            <th>README.md</th>
+        </tr>
+
+        <% for (var i = 0; i < pullRequestList.length; i++) { %>
+            <tr>
+                <td>
+                    <%= pullRequestList[i].number %>
+                </td>
+                <td>
+                    <%= pullRequestList[i].title %>
+                </td>
+                <td>
+                    <%= pullRequestList[i].user %>
+                </td>
+                <td>
+                    <%= pullRequestList[i].created_at %>
+                </td>
+                <td>
+                    <%= pullRequestList[i].readme_md %>
+                </td>
+            </tr>
+        <% } %>
+    </table>
+
+<% include partials/footer %>

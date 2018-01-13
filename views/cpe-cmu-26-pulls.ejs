@@ -1,4 +1,7 @@
 <% include partials/header %>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous"></script>
+    
 
     <table>
         <tr>
@@ -24,10 +27,17 @@
                     <%= pullRequestList[i].created_at %>
                 </td>
                 <td>
-                    <%= pullRequestList[i].readme_md %>
+                    <!-- <a href="<%= pullRequestList[i].readme_link %>" target="_blank">View README.md</a> -->
+                    <div id="partial-<%= pullRequestList[i].user %>"></div>
+                    <!-- <button type="button" id="load-partial-<%= pullRequestList[i].user %>" /> -->
+                    <script>
+                        // $('#load-partial-<%= pullRequestList[i].user %>').click(function () {
+                            $('#partial-<%= pullRequestList[i].user %>').load('/CPE-CMU-26/readme/<%= pullRequestList[i].user %>');
+                        // });
+                    </script>
                 </td>
             </tr>
-        <% } %>
+            <% } %>
     </table>
 
-<% include partials/footer %>
+    <% include partials/footer %>

@@ -1,0 +1,25 @@
+{
+  "name": "cpe102-lab-checker",
+  "version": "1.0.0",
+  "description": "An automated lab checker for using in CPE102 course aims to help lecturers and TAs in checking students' submissions ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tmwatchanan/cpe102-lab-checker.git"
+  },
+  "author": "Watchanan Chantapakul",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tmwatchanan/cpe102-lab-checker/issues"
+  },
+  "homepage": "https://github.com/tmwatchanan/cpe102-lab-checker#readme",
+  "dependencies": {
+    "cors": "^2.8.4",
+    "express": "^4.16.2",
+    "github": "^13.1.0",
+    "morgan": "^1.9.0"
+  }
+}

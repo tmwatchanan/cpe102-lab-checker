@@ -74,7 +74,7 @@ app.get('/CPE-CMU-26/pulls', function (req, res) {
 
 app.get('/CPE-CMU-26/readme/:user', function (req, res) {
 
-    request('https://raw.githubusercontent.com/' + req.params.user  + '/CPE-CMU-26/master/README.md', function (error, response, body) {
+    request('https://raw.githubusercontent.com/' + req.params.user + '/CPE-CMU-26/master/README.md', function (error, response, body) {
         // console.log('error:', error); // Print the error if one occurred
         // console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
         // console.log('body:', body); // Print the HTML for the Google homepage.
@@ -92,5 +92,40 @@ app.get('/CPE-CMU-26/readme/:user', function (req, res) {
     // })
     // .then(result => {
     //     return res.send(result);
+    // });
+});
+
+
+app.get('/cpe102-2560-2', function (req, res) {
+    // res.send('You are at /github endpoint.');
+    // user token
+    github.authenticate({
+        type: 'token',
+        token: '2dc27cfcfd1b5248d7b0272900eb980cb4a04946'
+    });
+    github.repos.getForOrg({
+        org: 'cpe102-2560-2',
+        type: 'private'
+    }).then(result => {
+        res.send(result);
+    });
+});
+
+app.get('/cpe102-2560-2/mu', function (req, res) {
+    github.authenticate({
+        type: 'token',
+        token: process.env.githubToken
+    });
+    github.repos.getContent({
+        owner: 'cpe102-2560-2',
+        repo: 'hw0-introduce-youtself-MisterMu',
+        path: 'MyNameIs.md'
+    }).then(result => {
+        res.send(result);
+    });
+    // github.repos.getById({
+    //     id: '115521809'
+    // }).then(result => {
+    //     res.send(result);
     // });
 });

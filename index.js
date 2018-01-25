@@ -8,7 +8,7 @@ app.set('port', port);
 
 // Allow CORS
 var cors = require('cors');
-app.use(cors());
+app.use(cors({}));
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", '*');
     res.header("Access-Control-Allow-Credentials", true);
@@ -30,7 +30,7 @@ app.listen(app.get('port'), () => {
 
 // ---------------------------------------------------------------------------------------------
 var mongoose = require('mongoose');
-var mongoDB = 'mongodb://'+ process.env.mLabCpe102User +':'+ process.env.mLabCpe102Password  +'@ds113648.mlab.com:13648/cpe102-2560-2';
+var mongoDB = 'mongodb://' + process.env.mLabCpe102User + ':' + process.env.mLabCpe102Password + '@ds113648.mlab.com:13648/cpe102-2560-2';
 mongoose.connect(mongoDB);
 mongoose.Promise = global.Promise;
 var db = mongoose.connection;
@@ -173,10 +173,15 @@ app.get('/cpe102-2560-2/add-students', function (req, res) {
     return res.send({ resultList });
 });
 
+
+var mainController = require('./controllers/mainController');
+
 app.post('/cpe102-2560-2/exam-i', function (req, res) {
-    console.log(req.body);
-    console.log(req.body.results);
-    console.log(req.body.id);
-    console.log(req.body.token);
+    // console.log(req.body);
+    // console.log(req.body.results);
+    // console.log(req.body.id);
+    // console.log(req.body.token);
+    console.log("[ID:" + req.body.id + "] submitted with token " + req.body.token);
+    mainController.gotPE1Result(req, res);
     return res.send(req.body);
 });

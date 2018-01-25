@@ -29,6 +29,12 @@ app.listen(app.get('port'), () => {
 });
 
 // ---------------------------------------------------------------------------------------------
+var mongoose = require('mongoose');
+var mongoDB = 'mongodb://'+ process.env.mLabCpe102User +':'+ process.env.mLabCpe102Password  +'@ds113648.mlab.com:13648/cpe102-2560-2';
+mongoose.connect(mongoDB);
+mongoose.Promise = global.Promise;
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 // ---------------------------------------------------------------------------------------------
 
 var GitHubApi = require('github');

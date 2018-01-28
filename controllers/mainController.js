@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var PE1Result = require('../models/PE1Result');
+var Lab6Result = require('../models/Lab6Result');
 
 exports.gotPE1Result = function (req, res) {
     var query = { id: req.body.id },
@@ -46,7 +46,7 @@ exports.lab6Submit = function (req, res) {
         options = { upsert: true, new: true, setDefaultsOnInsert: true };
 
     // Find the document
-    PE1Result.findOneAndUpdate(query, update, options, function (error, document) {
+    Lab6Result.findOneAndUpdate(query, update, options, function (error, document) {
         if (error) return;
 
         // do something with the document

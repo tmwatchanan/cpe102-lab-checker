@@ -1,0 +1,38 @@
+<% include partials/header %>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous"></script>
+    
+
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>#Submit</th>
+            <th>Token</th>
+            <th>3) case 1</th>
+            <th>3) case 2</th>
+            <th>3) case 3</th>
+        </tr>
+
+        <% for (var i = 0; i < PE1List.length; i++) { %>
+            <tr>
+                <td>
+                    <%= PE1List[i].id %>
+                </td>
+                <td>
+                    <%= PE1List[i].count %>
+                </td>
+                <td>
+                    <%= PE1List[i].token %>
+                </td>
+                <td>
+                    <%= PE1List[i].results %>
+                </td>
+                <td>
+                </td>
+                <td>
+                </td>
+            </tr>
+            <% } %>
+    </table>
+
+    <% include partials/footer %>

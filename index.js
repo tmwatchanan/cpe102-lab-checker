@@ -209,6 +209,9 @@ var mainController = require('./controllers/mainController');
 app.post('/cpe102-2560-2/exam-i', function (req, res) {
     console.log("[ID:" + req.body.id + "] submitted with token " + req.body.token);
     mainController.gotPE1Result(req, res);
+    return res.json({
+        server: "OK"
+    });
 });
 
 app.get('/cpe102-2560-2/practical-exam-1-check', function (req, res) {

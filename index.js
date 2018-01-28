@@ -220,7 +220,10 @@ app.get('/cpe102-2560-2/practical-exam-1-check', function (req, res) {
     mainController.showPracticalExam1Check(req, res);
 });
 
-app.post('/cpe102-2560-2/lab6/submit', function (req, res) {
+app.post('/cpe102-2560-2/lab6-submit', function (req, res) {
     console.log("[username:" + req.body.username + "] submitted repo " + req.body.repo);
     mainController.lab6Submit(req, res);
+    return res.json({
+        server: "OK"
+    });
 });

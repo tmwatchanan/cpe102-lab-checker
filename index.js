@@ -173,15 +173,54 @@ app.get('/cpe102-2560-2/add-students', function (req, res) {
     return res.send({ resultList });
 });
 
+// ---------------------------------------------------------------------------------------------
+app.get('/cpe102-2560-2/pe1-trigger-builds', function (req, res) {
+    github.authenticate({
+        type: 'token',
+        token: process.env.githubToken
+    });
+    github.repos.getForOrg({
+        org: "cpe102-2560-2",
+        type: "private",
+        per_page: 100,
+        page: 4
+    }).then(repoList => {
+        var selectedRepoList = [];
+        // console.log(repoList.data);
+        // return res.json(repoList.data);
+        for (i in repoList.data) {
+            let repoName = repoList.data[i].name;
+            if (repoName.indexOf("pe") != -1) {
+                selectedRepoList.push(repoName);
+            }
+        }
+        // repoList.forEach(repo => {
+        //     if (repo.name.contains("pe")) {
+        //         selectedRepoList.push(repo.name);
+        //     }
+        // });
+        return res.json(selectedRepoList);
+    });
+});
+// ---------------------------------------------------------------------------------------------
 
 var mainController = require('./controllers/mainController');
 
 app.post('/cpe102-2560-2/exam-i', function (req, res) {
-    // console.log(req.body);
-    // console.log(req.body.results);
-    // console.log(req.body.id);
-    // console.log(req.body.token);
     console.log("[ID:" + req.body.id + "] submitted with token " + req.body.token);
     mainController.gotPE1Result(req, res);
-    return res.send(req.body);
+});
+
+app.get('/cpe102-2560-2/practical-exam-1-check', function (req, res) {
+    var ip = (req.headers['x-forwarded-for'] ||
+        req.connection.remoteAddress ||
+        req.socket.remoteAddress ||
+        req.connection.socket.remoteAddress).split(",")[0];
+    console.log("[IP:" + ip + "] watched /cpe102-2560-2/practical-exam-1-check endpoint");
+    mainController.showPracticalExam1Check(req, res);
+});
+
+app.post('/cpe102-2560-2/lab6/submit', function (req, res) {
+    console.log("[username:" + req.body.username + "] submitted repo " + req.body.repo);
+    mainController.lab6Submit(req, res);
 });

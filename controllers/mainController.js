@@ -52,6 +52,9 @@ exports.lab6Submit = function (req, res) {
         // do something with the document
         document.count = document.count + 1;
         document.save();
+        return res.json({
+            server: "OK"
+        });
         // return res.json({
         //     server: "OK",
         //     id: req.body.id,

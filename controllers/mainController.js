@@ -41,8 +41,8 @@ exports.showPracticalExam1Check = function (req, res) {
 };
 
 exports.lab6Submit = function (req, res) {
-    var query = { username: req.body.username },
-        update = { repo: req.body.repo, results: req.body.results, updated: Date.now() },
+    var query = { username: req.body.username, repo: req.body.repo },
+        update = { results: req.body.results, updated: Date.now() },
         options = { upsert: true, new: true, setDefaultsOnInsert: true };
 
     try {

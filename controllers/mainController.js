@@ -23,7 +23,7 @@ exports.gotPE1Result = function (req, res) {
 };
 
 exports.showPracticalExam1Check = function (req, res) {
-    PE1Result.find({}).sort({ id: 1}).exec(function (err, documents) {
+    PE1Result.find({}).sort({ id: 1 }).exec(function (err, documents) {
         var PE1List = [];
         documents.forEach(document => {
             let PE1Object = {
@@ -45,21 +45,26 @@ exports.lab6Submit = function (req, res) {
         update = { repo: req.body.repo, results: req.body.results, updated: Date.now() },
         options = { upsert: true, new: true, setDefaultsOnInsert: true };
 
-    // Find the document
-    Lab6Result.findOneAndUpdate(query, update, options, function (error, document) {
-        if (error) return;
+    try {
+        // Find the document
+        Lab6Result.findOneAndUpdate(query, update, options, function (error, document) {
+            if (error) return;
 
-        // do something with the document
-        document.count = document.count + 1;
-        document.save();
-        return res.json({
-            server: "OK"
+            // do something with the document
+            document.count = document.count + 1;
+            document.save();
+            return res.json({
+                server: "OK"
+            });
+            // return res.json({
+            //     server: "OK",
+            //     id: req.body.id,
+            //     token: req.body.token,
+            //     results: req.body.results
+            // });
         });
-        // return res.json({
-        //     server: "OK",
-        //     id: req.body.id,
-        //     token: req.body.token,
-        //     results: req.body.results
-        // });
-    });
+    } catch (error) {
+        console.log("[ERROR] in lab6Submit");
+        console.log(error);
+    }
 };

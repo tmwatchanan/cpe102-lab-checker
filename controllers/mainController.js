@@ -52,6 +52,7 @@ exports.showPracticalExam1Check = function (req, res) {
                     PE1Object.buildUrl += studentInfo[0].username;
                 } else {
                     PE1Object.repoUrl = "#";
+                    PE1Object.buildUrl = "#";
                 }
             }
             document.results.forEach(result => {

@@ -13,7 +13,7 @@
 
     <table border="1">
         <tr>
-            <th colspan="3">Student Info</th>
+            <th colspan="4">Student Info</th>
             <th colspan="12">pracex1_3.cpp</th>
             <th></th>
             <th colspan="13">pracex1_4.cpp</th>
@@ -22,6 +22,7 @@
             <th>ID</th>
             <th>#Submit</th>
             <th>Token</th>
+            <th>Build</th>
 
             <th>t1</th>
             <th>t2</th>
@@ -67,6 +68,13 @@
                             <%= PE1List[i].exam %>
                     </a>
                 </td>
+                <td>
+                    <a href="<%= PE1List[i].buildUrl %>">
+                        Job Log
+                    </a>
+
+                </td>
+
                 <td class="<%= PE1List[i].q1.tc1 %>">
                     <%= PE1List[i].q1.tc1 %>
                 </td>

@@ -1,7 +1,15 @@
-<% include partials/header %>
+<html>
+
+<head>
+    <title>Practical Exam 1 | CPE102-2560-2 | CPE CMU</title>
+</head>
+
+<body>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
         crossorigin="anonymous"></script>
     <link rel="stylesheet" href="/public/css/main.css">
+
+    <h3>Practical Exam 1 | CPE102-2560-2</h3>
 
     <table border="1">
         <tr>
@@ -54,7 +62,10 @@
                     <%= PE1List[i].count %>
                 </td>
                 <td>
-                    <a href="<%= PE1List[i].repoUrl %>"><%= PE1List[i].token %> => <%= PE1List[i].exam %></a>
+                    <a href="<%= PE1List[i].repoUrl %>">
+                        <%= PE1List[i].token %> =>
+                            <%= PE1List[i].exam %>
+                    </a>
                 </td>
                 <td class="<%= PE1List[i].q1.tc1 %>">
                     <%= PE1List[i].q1.tc1 %>
@@ -138,4 +149,6 @@
             <% } %>
     </table>
 
-    <% include partials/footer %>
+</body>
+
+</html>

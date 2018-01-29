@@ -1,16 +1,25 @@
 <% include partials/header %>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
         crossorigin="anonymous"></script>
-    
+    <link rel="stylesheet" href="/public/css/main.css">
 
-    <table>
+    <table border="1">
         <tr>
             <th>ID</th>
             <th>#Submit</th>
             <th>Token</th>
-            <th>3) case 1</th>
-            <th>3) case 2</th>
-            <th>3) case 3</th>
+            <th>test_case 1</th>
+            <th>test_case 2</th>
+            <th>test_case 3</th>
+            <th>test_case 4</th>
+            <th>test_case 5</th>
+            <th>test_case 6</th>
+            <th>test_case 7</th>
+            <th>blind_case 1</th>
+            <th>blind_case 2</th>
+            <th>blind_case 3</th>
+            <th>blind_case 4</th>
+            <th>blind_case 5</th>
         </tr>
 
         <% for (var i = 0; i < PE1List.length; i++) { %>
@@ -24,12 +33,41 @@
                 <td>
                     <%= PE1List[i].token %>
                 </td>
-                <td>
-                    <%= PE1List[i].results %>
+                <td class="<%= PE1List[i].tc1 %>">
+                    <%= PE1List[i].tc1 %>
                 </td>
-                <td>
+                <td class="<%= PE1List[i].tc2 %>">
+                    <%= PE1List[i].tc2 %>
                 </td>
-                <td>
+                <td class="<%= PE1List[i].tc3 %>">
+                    <%= PE1List[i].tc3 %>
+                </td>
+                <td class="<%= PE1List[i].tc4 %>">
+                    <%= PE1List[i].tc4 %>
+                </td>
+                <td class="<%= PE1List[i].tc5 %>">
+                    <%= PE1List[i].tc5 %>
+                </td>
+                <td class="<%= PE1List[i].tc6 %>">
+                    <%= PE1List[i].tc6 %>
+                </td>
+                <td class="<%= PE1List[i].tc7 %>">
+                    <%= PE1List[i].tc7 %>
+                </td>
+                <td class="<%= PE1List[i].bc1 %>">
+                    <%= PE1List[i].bc1 %>
+                </td>
+                <td class="<%= PE1List[i].bc2 %>">
+                    <%= PE1List[i].bc2 %>
+                </td>
+                <td class="<%= PE1List[i].bc3 %>">
+                    <%= PE1List[i].bc3 %>
+                </td>
+                <td class="<%= PE1List[i].bc4 %>">
+                    <%= PE1List[i].bc4 %>
+                </td>
+                <td class="<%= PE1List[i].bc5 %>">
+                    <%= PE1List[i].bc5 %>
                 </td>
             </tr>
             <% } %>

@@ -33,6 +33,49 @@ exports.showPracticalExam1Check = function (req, res) {
                 results: document.results,
                 count: document.count
             };
+            document.results.forEach(result => {
+                const testcase = result.name.split(/[.]+/).pop();
+                switch (testcase) {
+                    case "test_case_1":
+                        PE1Object.tc1 = result.status;
+                        break;
+                    case "test_case_2":
+                        PE1Object.tc2 = result.status;
+                        break;
+                    case "test_case_3":
+                        PE1Object.tc3 = result.status;
+                        break;
+                    case "test_case_4":
+                        PE1Object.tc4 = result.status;
+                        break;
+                    case "test_case_5":
+                        PE1Object.tc5 = result.status;
+                        break;
+                    case "test_case_6":
+                        PE1Object.tc6 = result.status;
+                        break;
+                    case "test_case_7":
+                        PE1Object.tc7 = result.status;
+                        break;
+                    case "blind_case_1":
+                        PE1Object.bc1 = result.status;
+                        break;
+                    case "blind_case_2":
+                        PE1Object.bc2 = result.status;
+                        break;
+                    case "blind_case_3":
+                        PE1Object.bc3 = result.status;
+                        break;
+                    case "blind_case_4":
+                        PE1Object.bc4 = result.status;
+                        break;
+                    case "blind_case_5":
+                        PE1Object.bc5 = result.status;
+                        break;
+                    default:
+                        break;
+                }
+            });
             PE1List.push(PE1Object);
         });
         res.render('pe1-checker', {

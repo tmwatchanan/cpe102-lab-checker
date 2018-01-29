@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var PE1Result = require('../models/PE1Result');
 var Lab6Result = require('../models/Lab6Result');
+var StudentInformation = require('../data/StudentInformation');
 
 exports.gotPE1Result = function (req, res) {
     var query = { id: req.body.id },
@@ -33,6 +34,21 @@ exports.showPracticalExam1Check = function (req, res) {
                 results: document.results,
                 count: document.count
             };
+            if (document.token == "12331513795452" || document.token == "12331375195452" || document.token == "12331354751952") {
+                PE1Object.exam = "A";
+                PE1Object.repoUrl = "https://github.com/cpe102-2560-2/pe12653541265-";
+            } else if (document.token == "1527213502219" || document.token == "1213502527219" || document.token == "1213502725219") {
+                PE1Object.exam = "B";
+                PE1Object.repoUrl = "https://github.com/cpe102-2560-2/pe12656941265-";
+            }
+            if (document.id) {
+                let studentInfo = StudentInformation.filter(a => a.student_id == document.id);
+                if (studentInfo.length != 0) {
+                    PE1Object.repoUrl += studentInfo[0].username;
+                } else {
+                    PE1Object.repoUrl = "#";
+                }
+            }
             document.results.forEach(result => {
                 const testcase = result.name.split(/[.]+/).pop();
                 switch (testcase) {

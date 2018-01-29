@@ -3,6 +3,9 @@ var app = express();
 var bodyParser = require('body-parser'); // handling HTML body
 var morgan = require('morgan'); // logging
 
+// Lcao environment variables from a .env file -> process.env
+require('dotenv').config()
+
 var port = process.env.PORT || 5050; // process.env.PORT lets the port be set by Heroku
 app.set('port', port);
 

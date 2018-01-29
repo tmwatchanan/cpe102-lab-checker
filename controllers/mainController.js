@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var PE1Result = require('../models/PE1Result');
 var Lab6Result = require('../models/Lab6Result');
 
 exports.gotPE1Result = function (req, res) {

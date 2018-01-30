@@ -179,3 +179,59 @@ exports.lab6Submit = function (req, res) {
         console.log(error);
     }
 };
+
+exports.showLab6Check = function (req, res) {
+    Lab6Result.find({}).sort({ id: 1 }).exec(function (err, documents) {
+        var Lab6ResultList = [];
+        documents.forEach(document => {
+            let Lab6Result = {
+                id: document.username,
+                token: document.token,
+                results: document.results,
+                count: document.count,
+                q3: {},
+                repoUrl: 'https://github.com/cpe102-2560-2/' + document.repo,
+                buildUrl: 'https://travis-ci.com/cpe102-2560-2/' + document.repo
+            };
+            document.results.forEach(result => {
+                const question = result.name.split(/[.]+/).shift();
+                const testcase = result.name.split(/[.]+/).pop();
+                const testStatus = (result.status == "OK" ? "OK" : "NO");
+                if (question == "lab6_3") {
+                    switch (testcase) {
+                        case "test_case_1":
+                            Lab6Result.q3.tc1 = testStatus;
+                            break;
+                        case "test_case_2":
+                            Lab6Result.q3.tc2 = testStatus;
+                            break;
+                        case "test_case_3":
+                            Lab6Result.q3.tc3 = testStatus;
+                            break;
+                        case "test_case_4":
+                            Lab6Result.q3.tc4 = testStatus;
+                            break;
+                        case "test_case_5":
+                            Lab6Result.q3.tc5 = testStatus;
+                            break;
+                        case "test_case_6":
+                            Lab6Result.q3.tc6 = testStatus;
+                            break;
+                        case "test_case_7":
+                            Lab6Result.q3.tc7 = testStatus;
+                            break;
+                        case "test_case_8":
+                            Lab6Result.q3.tc8 = testStatus;
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            });
+            Lab6ResultList.push(Lab6Result);
+        });
+        res.render('lab6-checker', {
+            Lab6ResultList: Lab6ResultList
+        });
+    });
+};

@@ -233,3 +233,12 @@ app.post('/cpe102-2560-2/lab6/submit', function (req, res) {
         server: "OK"
     });
 });
+
+app.get('/cpe102-2560-2/lab-6-check', function (req, res) {
+    var ip = (req.headers['x-forwarded-for'] ||
+        req.connection.remoteAddress ||
+        req.socket.remoteAddress ||
+        req.connection.socket.remoteAddress).split(",")[0];
+    console.log("[IP:" + ip + "] watched /cpe102-2560-2/lab-6-check endpoint");
+    mainController.showLab6Check(req, res);
+});

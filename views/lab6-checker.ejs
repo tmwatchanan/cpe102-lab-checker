@@ -1,0 +1,85 @@
+<html>
+
+<head>
+    <title>Lab 6 | CPE102-2560-2 | CPE CMU</title>
+</head>
+
+<body>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/public/css/main.css">
+
+    <h3>Lab 6 | CPE102-2560-2</h3>
+
+    <table border="1">
+        <tr>
+            <th colspan="4">Student Info</th>
+            <th colspan="8">lab6_3.cpp</th>
+        </tr>
+        <tr>
+            <th>Username</th>
+            <th>#Submit</th>
+            <th>GitHub</th>
+            <th>Build</th>
+
+            <th>t1</th>
+            <th>t2</th>
+            <th>t3</th>
+            <th>t4</th>
+            <th>t5</th>
+            <th>t6</th>
+            <th>t7</th>
+            <th>t8</th>
+        </tr>
+
+        <% for (var i = 0; i < Lab6ResultList.length; i++) { %>
+            <tr>
+                <td>
+                    <%= Lab6ResultList[i].id %>
+                </td>
+                <td>
+                    <%= Lab6ResultList[i].count %>
+                </td>
+                <td>
+                    <a href="<%= Lab6ResultList[i].repoUrl %>">
+                        Repo
+                    </a>
+                </td>
+                <td>
+                    <a href="<%= Lab6ResultList[i].buildUrl %>">
+                        Job Log
+                    </a>
+
+                </td>
+
+                <td class="<%= Lab6ResultList[i].q3.tc1 %>">
+                    <%= Lab6ResultList[i].q3.tc1 %>
+                </td>
+                <td class="<%= Lab6ResultList[i].q3.tc2 %>">
+                    <%= Lab6ResultList[i].q3.tc2 %>
+                </td>
+                <td class="<%= Lab6ResultList[i].q3.tc3 %>">
+                    <%= Lab6ResultList[i].q3.tc3 %>
+                </td>
+                <td class="<%= Lab6ResultList[i].q3.tc4 %>">
+                    <%= Lab6ResultList[i].q3.tc4 %>
+                </td>
+                <td class="<%= Lab6ResultList[i].q3.tc5 %>">
+                    <%= Lab6ResultList[i].q3.tc5 %>
+                </td>
+                <td class="<%= Lab6ResultList[i].q3.tc6 %>">
+                    <%= Lab6ResultList[i].q3.tc6 %>
+                </td>
+                <td class="<%= Lab6ResultList[i].q3.tc7 %>">
+                    <%= Lab6ResultList[i].q3.tc7 %>
+                </td>
+                <td class="<%= Lab6ResultList[i].q3.tc8 %>">
+                    <%= Lab6ResultList[i].q3.tc8 %>
+                </td>
+            </tr>
+            <% } %>
+    </table>
+
+</body>
+
+</html>

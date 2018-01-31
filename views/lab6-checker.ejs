@@ -13,7 +13,8 @@
 
     <table border="1">
         <tr>
-            <th colspan="5">Student Info</th>
+            <th colspan="4">Student Info</th>
+            <th colspan="3">Build</th>
             <th colspan="8">lab6_3.cpp</th>
         </tr>
         <tr>
@@ -21,7 +22,10 @@
             <th>Username</th>
             <th>#Submit</th>
             <th>GitHub</th>
-            <th>Build</th>
+
+            <th>Logs</th>
+            <th>Created</th>
+            <th>Updated</th>
 
             <th>t1</th>
             <th>t2</th>
@@ -53,7 +57,12 @@
                     <a href="<%= Lab6ResultList[i].buildUrl %>">
                         Job Log
                     </a>
-
+                </td>
+                <td>
+                    <%= Lab6ResultList[i].created.toLocaleString() %>
+                </td>
+                <td>
+                    <%= Lab6ResultList[i].updated.toLocaleString() %>
                 </td>
 
                 <td class="<%= Lab6ResultList[i].q3.tc1 %>">

@@ -191,6 +191,8 @@ exports.showLab6Check = function (req, res) {
                 token: document.token,
                 results: document.results,
                 count: document.count,
+                created: document.created,
+                updated: document.updated,
                 q3: {},
                 repoUrl: 'https://github.com/cpe102-2560-2/' + document.repo,
                 buildUrl: 'https://travis-ci.com/cpe102-2560-2/' + document.repo
@@ -235,8 +237,9 @@ exports.showLab6Check = function (req, res) {
             });
             Lab6ResultList.push(Lab6Result);
         });
+        var SortedLab6ResultList = Lab6ResultList.sort(function(a, b) {return a.id - b.id});
         res.render('lab6-checker', {
-            Lab6ResultList: Lab6ResultList
+            Lab6ResultList: SortedLab6ResultList
         });
     });
 };

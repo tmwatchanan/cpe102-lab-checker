@@ -24,6 +24,7 @@
     "express": "^4.16.2",
     "github": "^13.1.0",
     "github-markdown-css": "^2.10.0",
+    "githubhook": "^1.9.3",
     "marked": "^0.3.12",
     "mongoose": "^5.0.1",
     "morgan": "^1.9.0",

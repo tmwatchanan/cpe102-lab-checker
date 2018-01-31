@@ -46,10 +46,10 @@ exports.showPracticalExam1Check = function (req, res) {
                 PE1Object.buildUrl = "https://travis-ci.com/cpe102-2560-2/pe12656941265-"
             }
             if (document.id) {
-                let studentInfo = StudentInformation.filter(a => a.student_id == document.id);
+                let studentInfo = StudentInformation.find(student => student.student_id === document.id);
                 if (studentInfo.length != 0) {
-                    PE1Object.repoUrl += studentInfo[0].username;
-                    PE1Object.buildUrl += studentInfo[0].username;
+                    PE1Object.repoUrl += studentInfo.username;
+                    PE1Object.buildUrl += studentInfo.username;
                 } else {
                     PE1Object.repoUrl = "#";
                     PE1Object.buildUrl = "#";
@@ -184,8 +184,10 @@ exports.showLab6Check = function (req, res) {
     Lab6Result.find({}).sort({ id: 1 }).exec(function (err, documents) {
         var Lab6ResultList = [];
         documents.forEach(document => {
+            const student = StudentInformation.find(student => student.username === document.username);
             let Lab6Result = {
-                id: document.username,
+                username: document.username,
+                id: "",
                 token: document.token,
                 results: document.results,
                 count: document.count,
@@ -193,6 +195,9 @@ exports.showLab6Check = function (req, res) {
                 repoUrl: 'https://github.com/cpe102-2560-2/' + document.repo,
                 buildUrl: 'https://travis-ci.com/cpe102-2560-2/' + document.repo
             };
+            if (student) {
+                Lab6Result.id = student.student_id;
+            }
             document.results.forEach(result => {
                 const question = result.name.split(/[.]+/).shift();
                 const testcase = result.name.split(/[.]+/).pop();

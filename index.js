@@ -40,6 +40,16 @@ var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 // ---------------------------------------------------------------------------------------------
 
+// Webhook--------------------------------------------------------------------------------------
+// var githubhook = require('githubhook');
+// var github = githubhook({/* options */});
+// github.listen();
+// github.on('repository:created', function (event, data) {
+// });
+
+// ---------------------------------------------------------------------------------------------
+
+
 var GitHubApi = require('github');
 var request = require('request');
 var path = require('path');

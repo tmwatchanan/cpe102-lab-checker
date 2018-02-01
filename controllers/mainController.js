@@ -184,7 +184,7 @@ exports.showLab6Check = function (req, res) {
     Lab6Result.find({}).sort({ id: 1 }).exec(function (err, documents) {
         var Lab6ResultList = [];
         documents.forEach(document => {
-            const student = StudentInformation.find(student => student.username === document.username);
+            const student = StudentInformation.find(student => student.username.toLowerCase() == document.username.toLowerCase());
             let Lab6Result = {
                 username: document.username,
                 id: "",

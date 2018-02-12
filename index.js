@@ -128,7 +128,7 @@ app.get('/cpe102-2560-2', function (req, res) {
     // user token
     github.authenticate({
         type: 'token',
-        token: '2dc27cfcfd1b5248d7b0272900eb980cb4a04946'
+        token: process.env.githubToken
     });
     github.repos.getForOrg({
         org: 'cpe102-2560-2',
@@ -233,7 +233,7 @@ app.get('/cpe102-2560-2/practical-exam-1-check', function (req, res) {
         req.socket.remoteAddress ||
         req.connection.socket.remoteAddress).split(",")[0];
     console.log("[IP:" + ip + "] watched /cpe102-2560-2/practical-exam-1-check endpoint");
-    mainController.showPracticalExam1Check(req, res);
+    mainController.showPracticalExam1CheckFromDatabase(req, res);
 });
 
 app.post('/cpe102-2560-2/lab6/submit', function (req, res) {
@@ -251,4 +251,13 @@ app.get('/cpe102-2560-2/lab-6-check', function (req, res) {
         req.connection.socket.remoteAddress).split(",")[0];
     console.log("[IP:" + ip + "] watched /cpe102-2560-2/lab-6-check endpoint");
     mainController.showLab6Check(req, res);
+});
+
+app.get('/cpe102-2560-2/practical-exam-1-repos', function (req, res) {
+    var ip = (req.headers['x-forwarded-for'] ||
+        req.connection.remoteAddress ||
+        req.socket.remoteAddress ||
+        req.connection.socket.remoteAddress).split(",")[0];
+    console.log("[IP:" + ip + "] watched /cpe102-2560-2/practical-exam-1-check endpoint");
+    mainController.showPracticalExam1CheckFromGitHub(req, res);
 });

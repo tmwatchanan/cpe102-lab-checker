@@ -1,0 +1,168 @@
+<html>
+
+<head>
+    <title>Practical Exam 1 | CPE102-2560-2 | CPE CMU</title>
+</head>
+
+<body>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/public/css/main.css">
+
+    <h3>Practical Exam 1 | CPE102-2560-2</h3>
+
+    <table border="1">
+        <tr>
+            <th colspan="5">Student Info</th>
+            <th colspan="12">pracex1_3.cpp</th>
+            <th></th>
+            <th colspan="13">pracex1_4.cpp</th>
+        </tr>
+        <tr>
+            <th>ID</th>
+            <th>Username</th>
+            <th>#Submit</th>
+            <th>Token</th>
+            <th>Build</th>
+
+            <th>t1</th>
+            <th>t2</th>
+            <th>t3</th>
+            <th>t4</th>
+            <th>t5</th>
+            <th>t6</th>
+            <th>t7</th>
+            <th>b1</th>
+            <th>b2</th>
+            <th>b3</th>
+            <th>b4</th>
+            <th>b5</th>
+
+            <th>--|--</th>
+
+            <th>t1</th>
+            <th>t2</th>
+            <th>t3</th>
+            <th>t4</th>
+            <th>t5</th>
+            <th>t6</th>
+            <th>t7</th>
+            <th>t8</th>
+            <th>t9</th>
+            <th>b1</th>
+            <th>b2</th>
+            <th>b3</th>
+            <th>b4</th>
+        </tr>
+
+        <% for (var i = 0; i < PE1List.length; i++) { %>
+            <tr>
+                <td>
+                    <%= PE1List[i].id %>
+                </td>
+                <td>
+                    <a href="<%= PE1List[i].githubUrl %>">
+                        <%= PE1List[i].username %>
+                    </a>
+                </td>
+                <td>
+                    <%= PE1List[i].count %>
+                </td>
+                <td>
+                    <a href="<%= PE1List[i].repoUrl %>">
+                        <%= PE1List[i].token %> =>
+                            <%= PE1List[i].exam %>
+                    </a>
+                </td>
+                <td>
+                    <a href="<%= PE1List[i].buildUrl %>">
+                        Job Log
+                    </a>
+
+                </td>
+
+                <td class="<%= PE1List[i].q1.tc1 %>">
+                    <%= PE1List[i].q1.tc1 %>
+                </td>
+                <td class="<%= PE1List[i].q1.tc2 %>">
+                    <%= PE1List[i].q1.tc2 %>
+                </td>
+                <td class="<%= PE1List[i].q1.tc3 %>">
+                    <%= PE1List[i].q1.tc3 %>
+                </td>
+                <td class="<%= PE1List[i].q1.tc4 %>">
+                    <%= PE1List[i].q1.tc4 %>
+                </td>
+                <td class="<%= PE1List[i].q1.tc5 %>">
+                    <%= PE1List[i].q1.tc5 %>
+                </td>
+                <td class="<%= PE1List[i].q1.tc6 %>">
+                    <%= PE1List[i].q1.tc6 %>
+                </td>
+                <td class="<%= PE1List[i].q1.tc7 %>">
+                    <%= PE1List[i].q1.tc7 %>
+                </td>
+                <td class="<%= PE1List[i].q1.bc1 %>">
+                    <%= PE1List[i].q1.bc1 %>
+                </td>
+                <td class="<%= PE1List[i].q1.bc2 %>">
+                    <%= PE1List[i].q1.bc2 %>
+                </td>
+                <td class="<%= PE1List[i].q1.bc3 %>">
+                    <%= PE1List[i].q1.bc3 %>
+                </td>
+                <td class="<%= PE1List[i].q1.bc4 %>">
+                    <%= PE1List[i].q1.bc4 %>
+                </td>
+                <td class="<%= PE1List[i].q1.bc5 %>">
+                    <%= PE1List[i].q1.bc5 %>
+                </td>
+
+                <td>--|--</td>
+
+                <td class="<%= PE1List[i].q2.tc1 %>">
+                    <%= PE1List[i].q2.tc1 %>
+                </td>
+                <td class="<%= PE1List[i].q2.tc2 %>">
+                    <%= PE1List[i].q2.tc2 %>
+                </td>
+                <td class="<%= PE1List[i].q2.tc3 %>">
+                    <%= PE1List[i].q2.tc3 %>
+                </td>
+                <td class="<%= PE1List[i].q2.tc4 %>">
+                    <%= PE1List[i].q2.tc4 %>
+                </td>
+                <td class="<%= PE1List[i].q2.tc5 %>">
+                    <%= PE1List[i].q2.tc5 %>
+                </td>
+                <td class="<%= PE1List[i].q2.tc6 %>">
+                    <%= PE1List[i].q2.tc6 %>
+                </td>
+                <td class="<%= PE1List[i].q2.tc7 %>">
+                    <%= PE1List[i].q2.tc7 %>
+                </td>
+                <td class="<%= PE1List[i].q2.tc8 %>">
+                    <%= PE1List[i].q2.tc8 %>
+                </td>
+                <td class="<%= PE1List[i].q2.tc9 %>">
+                    <%= PE1List[i].q2.tc9 %>
+                </td>
+                <td class="<%= PE1List[i].q2.bc1 %>">
+                    <%= PE1List[i].q2.bc1 %>
+                </td>
+                <td class="<%= PE1List[i].q2.bc2 %>">
+                    <%= PE1List[i].q2.bc2 %>
+                </td>
+                <td class="<%= PE1List[i].q2.bc3 %>">
+                    <%= PE1List[i].q2.bc3 %>
+                </td>
+                <td class="<%= PE1List[i].q2.bc4 %>">
+                    <%= PE1List[i].q2.bc4 %>
+                </td>
+            </tr>
+            <% } %>
+    </table>
+
+</body>
+
+</html>

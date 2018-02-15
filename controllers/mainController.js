@@ -456,7 +456,7 @@ exports.lab11Submit = function (req, res) {
         options = { upsert: true, new: true, setDefaultsOnInsert: true };
 
     try {
-        Lab6Result.findOneAndUpdate(query, update, options, function (error, document) {
+        Lab11Result.findOneAndUpdate(query, update, options, function (error, document) {
             if (error) return;
 
             document.count = document.count + 1;
@@ -469,11 +469,11 @@ exports.lab11Submit = function (req, res) {
 };
 
 exports.showLab11Check = function (req, res) {
-    Lab6Result.find({}).sort({ id: 1 }).exec(function (err, documents) {
-        var Lab6ResultList = [];
+    Lab11Result.find({}).sort({ id: 1 }).exec(function (err, documents) {
+        var Lab11ResultList = [];
         documents.forEach(document => {
             const student = StudentInformation.find(student => student.username.toLowerCase() == document.username.toLowerCase());
-            let Lab6Result = {
+            let Lab11Result = {
                 username: document.username,
                 id: "",
                 token: document.token,
@@ -489,7 +489,7 @@ exports.showLab11Check = function (req, res) {
                 buildUrl: 'https://travis-ci.com/cpe102-2560-2/' + document.repo
             };
             if (student) {
-                Lab6Result.id = student.student_id;
+                Lab11Result.id = student.student_id;
             }
             document.results.forEach(result => {
                 const question = result.name.split(/[.]+/).shift();
@@ -498,22 +498,22 @@ exports.showLab11Check = function (req, res) {
                 if (question == "lab11_1") {
                     switch (testcase) {
                         case "test_case_1":
-                            Lab6Result.q1.tc1 = testStatus;
+                            Lab11Result.q1.tc1 = testStatus;
                             break;
                         case "test_case_2":
-                            Lab6Result.q1.tc2 = testStatus;
+                            Lab11Result.q1.tc2 = testStatus;
                             break;
                         case "test_case_3":
-                            Lab6Result.q1.tc3 = testStatus;
+                            Lab11Result.q1.tc3 = testStatus;
                             break;
                         case "test_case_4":
-                            Lab6Result.q1.tc4 = testStatus;
+                            Lab11Result.q1.tc4 = testStatus;
                             break;
                         case "test_case_5":
-                            Lab6Result.q1.tc5 = testStatus;
+                            Lab11Result.q1.tc5 = testStatus;
                             break;
                         case "test_case_6":
-                            Lab6Result.q1.tc6 = testStatus;
+                            Lab11Result.q1.tc6 = testStatus;
                             break;
                         default:
                             break;
@@ -521,22 +521,22 @@ exports.showLab11Check = function (req, res) {
                 } else if (question == "lab11_2") {
                     switch (testcase) {
                         case "test_case_1":
-                            Lab6Result.q2.tc1 = testStatus;
+                            Lab11Result.q2.tc1 = testStatus;
                             break;
                         case "test_case_2":
-                            Lab6Result.q2.tc2 = testStatus;
+                            Lab11Result.q2.tc2 = testStatus;
                             break;
                         case "test_case_3":
-                            Lab6Result.q2.tc3 = testStatus;
+                            Lab11Result.q2.tc3 = testStatus;
                             break;
                         case "test_case_4":
-                            Lab6Result.q2.tc4 = testStatus;
+                            Lab11Result.q2.tc4 = testStatus;
                             break;
                         case "test_case_5":
-                            Lab6Result.q2.tc5 = testStatus;
+                            Lab11Result.q2.tc5 = testStatus;
                             break;
                         case "test_case_6":
-                            Lab6Result.q2.tc6 = testStatus;
+                            Lab11Result.q2.tc6 = testStatus;
                             break;
                         default:
                             break;
@@ -544,7 +544,7 @@ exports.showLab11Check = function (req, res) {
                 } else if (question == "lab11_3") {
                     switch (testcase) {
                         case "test_case_1":
-                            Lab6Result.q3.tc1 = testStatus;
+                            Lab11Result.q3.tc1 = testStatus;
                             break;
                         default:
                             break;
@@ -552,24 +552,24 @@ exports.showLab11Check = function (req, res) {
                 } else if (question == "lab11_4") {
                     switch (testcase) {
                         case "test_case_1":
-                            Lab6Result.q4.tc1 = testStatus;
+                            Lab11Result.q4.tc1 = testStatus;
                             break;
                         case "test_case_2":
-                            Lab6Result.q4.tc2 = testStatus;
+                            Lab11Result.q4.tc2 = testStatus;
                             break;
                         case "test_case_3":
-                            Lab6Result.q4.tc3 = testStatus;
+                            Lab11Result.q4.tc3 = testStatus;
                             break;
                         default:
                             break;
                     }
                 }
             });
-            Lab6ResultList.push(Lab6Result);
+            Lab11ResultList.push(Lab11Result);
         });
-        var SortedLab6ResultList = Lab6ResultList.sort(function (a, b) { return a.id - b.id });
+        var SortedLab11ResultList = Lab11ResultList.sort(function (a, b) { return a.id - b.id });
         res.render('lab11-checker', {
-            Lab6ResultList: SortedLab6ResultList
+            Lab11ResultList: SortedLab11ResultList
         });
     });
 };

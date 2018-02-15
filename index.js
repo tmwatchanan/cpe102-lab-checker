@@ -236,6 +236,15 @@ app.get('/cpe102-2560-2/practical-exam-1-check', function (req, res) {
     mainController.showPracticalExam1CheckFromDatabase(req, res);
 });
 
+app.get('/cpe102-2560-2/practical-exam-1-repos', function (req, res) {
+    var ip = (req.headers['x-forwarded-for'] ||
+        req.connection.remoteAddress ||
+        req.socket.remoteAddress ||
+        req.connection.socket.remoteAddress).split(",")[0];
+    console.log("[IP:" + ip + "] watched /cpe102-2560-2/practical-exam-1-check endpoint");
+    mainController.showPracticalExam1CheckFromGitHub(req, res);
+});
+
 app.post('/cpe102-2560-2/lab6/submit', function (req, res) {
     console.log("[username:" + req.body.username + "] submitted repo " + req.body.repo);
     mainController.lab6Submit(req, res);
@@ -253,11 +262,19 @@ app.get('/cpe102-2560-2/lab-6-check', function (req, res) {
     mainController.showLab6Check(req, res);
 });
 
-app.get('/cpe102-2560-2/practical-exam-1-repos', function (req, res) {
+app.post('/cpe102-2560-2/lab6/submit', function (req, res) {
+    console.log("[username:" + req.body.username + "] submitted repo " + req.body.repo);
+    mainController.lab11Submit(req, res);
+    return res.json({
+        server: "OK"
+    });
+});
+
+app.get('/cpe102-2560-2/lab-11-check', function (req, res) {
     var ip = (req.headers['x-forwarded-for'] ||
         req.connection.remoteAddress ||
         req.socket.remoteAddress ||
         req.connection.socket.remoteAddress).split(",")[0];
-    console.log("[IP:" + ip + "] watched /cpe102-2560-2/practical-exam-1-check endpoint");
-    mainController.showPracticalExam1CheckFromGitHub(req, res);
+    console.log("[IP:" + ip + "] watched /cpe102-2560-2/lab-11-check endpoint");
+    mainController.showLab11Check(req, res);
 });

@@ -1,7 +1,8 @@
 var mongoose = require('mongoose');
+var StudentInformation = require('../data/StudentInformation');
 var PE1Result = require('../models/PE1Result');
 var Lab6Result = require('../models/Lab6Result');
-var StudentInformation = require('../data/StudentInformation');
+var Lab11Result = require('../models/Lab11Result');
 var async = require('async');
 var GitHubApi = require('github');
 const github = new GitHubApi({
@@ -444,6 +445,130 @@ exports.showLab6Check = function (req, res) {
         });
         var SortedLab6ResultList = Lab6ResultList.sort(function (a, b) { return a.id - b.id });
         res.render('lab6-checker', {
+            Lab6ResultList: SortedLab6ResultList
+        });
+    });
+};
+
+exports.lab11Submit = function (req, res) {
+    var query = { username: req.body.username, repo: req.body.repo },
+        update = { results: req.body.results, updated: Date.now() },
+        options = { upsert: true, new: true, setDefaultsOnInsert: true };
+
+    try {
+        Lab6Result.findOneAndUpdate(query, update, options, function (error, document) {
+            if (error) return;
+
+            document.count = document.count + 1;
+            document.save();
+        });
+    } catch (error) {
+        console.log("[ERROR] in lab11Submit");
+        console.log(error);
+    }
+};
+
+exports.showLab11Check = function (req, res) {
+    Lab6Result.find({}).sort({ id: 1 }).exec(function (err, documents) {
+        var Lab6ResultList = [];
+        documents.forEach(document => {
+            const student = StudentInformation.find(student => student.username.toLowerCase() == document.username.toLowerCase());
+            let Lab6Result = {
+                username: document.username,
+                id: "",
+                token: document.token,
+                results: document.results,
+                count: document.count,
+                created: document.created,
+                updated: document.updated,
+                q1: {},
+                q2: {},
+                q3: {},
+                q4: {},
+                repoUrl: 'https://github.com/cpe102-2560-2/' + document.repo,
+                buildUrl: 'https://travis-ci.com/cpe102-2560-2/' + document.repo
+            };
+            if (student) {
+                Lab6Result.id = student.student_id;
+            }
+            document.results.forEach(result => {
+                const question = result.name.split(/[.]+/).shift();
+                const testcase = result.name.split(/[.]+/).pop();
+                const testStatus = (result.status == "OK" ? "OK" : "NO");
+                if (question == "lab11_1") {
+                    switch (testcase) {
+                        case "test_case_1":
+                            Lab6Result.q1.tc1 = testStatus;
+                            break;
+                        case "test_case_2":
+                            Lab6Result.q1.tc2 = testStatus;
+                            break;
+                        case "test_case_3":
+                            Lab6Result.q1.tc3 = testStatus;
+                            break;
+                        case "test_case_4":
+                            Lab6Result.q1.tc4 = testStatus;
+                            break;
+                        case "test_case_5":
+                            Lab6Result.q1.tc5 = testStatus;
+                            break;
+                        case "test_case_6":
+                            Lab6Result.q1.tc6 = testStatus;
+                            break;
+                        default:
+                            break;
+                    }
+                } else if (question == "lab11_2") {
+                    switch (testcase) {
+                        case "test_case_1":
+                            Lab6Result.q2.tc1 = testStatus;
+                            break;
+                        case "test_case_2":
+                            Lab6Result.q2.tc2 = testStatus;
+                            break;
+                        case "test_case_3":
+                            Lab6Result.q2.tc3 = testStatus;
+                            break;
+                        case "test_case_4":
+                            Lab6Result.q2.tc4 = testStatus;
+                            break;
+                        case "test_case_5":
+                            Lab6Result.q2.tc5 = testStatus;
+                            break;
+                        case "test_case_6":
+                            Lab6Result.q2.tc6 = testStatus;
+                            break;
+                        default:
+                            break;
+                    }
+                } else if (question == "lab11_3") {
+                    switch (testcase) {
+                        case "test_case_1":
+                            Lab6Result.q3.tc1 = testStatus;
+                            break;
+                        default:
+                            break;
+                    }
+                } else if (question == "lab11_4") {
+                    switch (testcase) {
+                        case "test_case_1":
+                            Lab6Result.q4.tc1 = testStatus;
+                            break;
+                        case "test_case_2":
+                            Lab6Result.q4.tc2 = testStatus;
+                            break;
+                        case "test_case_3":
+                            Lab6Result.q4.tc3 = testStatus;
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            });
+            Lab6ResultList.push(Lab6Result);
+        });
+        var SortedLab6ResultList = Lab6ResultList.sort(function (a, b) { return a.id - b.id });
+        res.render('lab11-checker', {
             Lab6ResultList: SortedLab6ResultList
         });
     });

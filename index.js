@@ -262,7 +262,7 @@ app.get('/cpe102-2560-2/lab-6-check', function (req, res) {
     mainController.showLab6Check(req, res);
 });
 
-app.post('/cpe102-2560-2/lab6/submit', function (req, res) {
+app.post('/cpe102-2560-2/lab11/submit', function (req, res) {
     console.log("[username:" + req.body.username + "] submitted repo " + req.body.repo);
     mainController.lab11Submit(req, res);
     return res.json({

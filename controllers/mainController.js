@@ -594,9 +594,12 @@ exports.showPracticalExam2CheckFromDatabase = function (req, res) {
         documents.forEach(document => {
             let PE2Object = {
                 id: document.id,
+                username: "",
                 token: document.token,
                 results: document.results,
                 count: document.count,
+                created: document.created,
+                updated: document.updated,
                 q1: {},
                 q2: {}
             };
@@ -610,10 +613,12 @@ exports.showPracticalExam2CheckFromDatabase = function (req, res) {
                 if (studentInfo.length != 0) {
                     PE2Object.repoUrl += studentInfo.username;
                     PE2Object.buildUrl += studentInfo.username;
-                    console.log(PE2Object.id, studentInfo.username);
+                    // console.log(PE2Object.id, studentInfo.username);
+                    PE2Object.username = studentInfo.username;
                 } else {
                     PE2Object.repoUrl = "#";
                     PE2Object.buildUrl = "#";
+                    PE2Object.username = "Unknown";
                 }
             }
             document.results.forEach(result => {

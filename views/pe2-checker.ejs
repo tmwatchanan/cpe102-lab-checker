@@ -14,15 +14,20 @@
     <table border="1">
         <tr>
             <th colspan="4">Student Info</th>
+            <th colspan="3">Build</th>
             <th colspan="6">pracex2_1.cpp</th>
             <th></th>
             <th colspan="6">pracex2_2.cpp</th>
         </tr>
         <tr>
             <th>ID</th>
+            <th>Username</th>
             <th>#Submit</th>
             <th>Token</th>
-            <th>Build</th>
+
+            <th>Logs</th>
+            <th>Created</th>
+            <th>Updated</th>
 
             <th>t1</th>
             <th>t2</th>
@@ -47,6 +52,9 @@
                     <%= PE1List[i].id %>
                 </td>
                 <td>
+                    <%= PE1List[i].username %>
+                </td>
+                <td>
                     <%= PE1List[i].count %>
                 </td>
                 <td>
@@ -59,7 +67,12 @@
                     <a href="<%= PE1List[i].buildUrl %>">
                         Job Log
                     </a>
-
+                </td>
+                <td>
+                    <%= PE1List[i].created.toLocaleString() %>
+                </td>
+                <td>
+                    <%= PE1List[i].updated.toLocaleString() %>
                 </td>
 
                 <td class="<%= PE1List[i].q1.tc1 %>">

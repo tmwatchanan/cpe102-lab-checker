@@ -3,6 +3,7 @@ var StudentInformation = require('../data/StudentInformation');
 var PE1Result = require('../models/PE1Result');
 var Lab6Result = require('../models/Lab6Result');
 var Lab11Result = require('../models/Lab11Result');
+var PE2Result = require('../models/PE2Result');
 var async = require('async');
 var GitHubApi = require('github');
 const github = new GitHubApi({

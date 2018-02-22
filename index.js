@@ -278,3 +278,20 @@ app.get('/cpe102-2560-2/lab-11-check', function (req, res) {
     console.log("[IP:" + ip + "] watched /cpe102-2560-2/lab-11-check endpoint");
     mainController.showLab11Check(req, res);
 });
+
+app.post('/cpe102-2560-2/exam-ii', function (req, res) {
+    console.log("[ID:" + req.body.id + "] submitted with token " + req.body.token);
+    mainController.gotPE2Result(req, res);
+    return res.json({
+        server: "OK"
+    });
+});
+
+app.get('/cpe102-2560-2/practical-exam-2-check', function (req, res) {
+    var ip = (req.headers['x-forwarded-for'] ||
+        req.connection.remoteAddress ||
+        req.socket.remoteAddress ||
+        req.connection.socket.remoteAddress).split(",")[0];
+    console.log("[IP:" + ip + "] watched /cpe102-2560-2/practical-exam-2-check endpoint");
+    mainController.showPracticalExam2CheckFromDatabase(req, res);
+});

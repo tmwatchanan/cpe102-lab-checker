@@ -573,3 +573,104 @@ exports.showLab11Check = function (req, res) {
         });
     });
 };
+
+exports.gotPE2Result = function (req, res) {
+    var query = { id: req.body.id },
+        update = { token: req.body.token, results: req.body.results, updated: Date.now() },
+        options = { upsert: true, new: true, setDefaultsOnInsert: true };
+
+    PE2Result.findOneAndUpdate(query, update, options, function (error, document) {
+        if (error) return;
+
+        document.count = document.count + 1;
+        document.save();
+    });
+};
+
+exports.showPracticalExam2CheckFromDatabase = function (req, res) {
+    PE2Result.find({}).sort({ id: 1 }).exec(function (err, documents) {
+        var PE2List = [];
+        documents.forEach(document => {
+            let PE2Object = {
+                id: document.id,
+                token: document.token,
+                results: document.results,
+                count: document.count,
+                q1: {},
+                q2: {}
+            };
+            if (document.token == "1541798562121") {
+                PE2Object.exam = "A";
+                PE2Object.repoUrl = "https://github.com/cpe102-2560-2/PE23619544570-";
+                PE2Object.buildUrl = "https://travis-ci.com/cpe102-2560-2/PE23619544570-"
+            }
+            if (document.id) {
+                let studentInfo = StudentInformation.find(student => student.student_id === document.id);
+                if (studentInfo.length != 0) {
+                    PE2Object.repoUrl += studentInfo.username;
+                    PE2Object.buildUrl += studentInfo.username;
+                    console.log(PE2Object.id, studentInfo.username);
+                } else {
+                    PE2Object.repoUrl = "#";
+                    PE2Object.buildUrl = "#";
+                }
+            }
+            document.results.forEach(result => {
+                const question = result.name.split(/[.]+/).shift();
+                const testcase = result.name.split(/[.]+/).pop();
+                const testStatus = (result.status == "OK" ? "OK" : "NO");
+                if (question == "pracex2_1") {
+                    switch (testcase) {
+                        case "test_case_1":
+                            PE2Object.q1.tc1 = testStatus;
+                            break;
+                        case "test_case_2":
+                            PE2Object.q1.tc2 = testStatus;
+                            break;
+                        case "test_case_3":
+                            PE2Object.q1.tc3 = testStatus;
+                            break;
+                        case "test_case_4":
+                            PE2Object.q1.tc4 = testStatus;
+                            break;
+                        case "test_case_5":
+                            PE2Object.q1.tc5 = testStatus;
+                            break;
+                        case "test_case_6":
+                            PE2Object.q1.tc6 = testStatus;
+                            break;
+                        default:
+                            break;
+                    }
+                } else if (question == "pracex2_2") {
+                    switch (testcase) {
+                        case "test_case_1":
+                            PE2Object.q2.tc1 = testStatus;
+                            break;
+                        case "test_case_2":
+                            PE2Object.q2.tc2 = testStatus;
+                            break;
+                        case "test_case_3":
+                            PE2Object.q2.tc3 = testStatus;
+                            break;
+                        case "test_case_4":
+                            PE2Object.q2.tc4 = testStatus;
+                            break;
+                        case "test_case_5":
+                            PE2Object.q2.tc5 = testStatus;
+                            break;
+                        case "test_case_6":
+                            PE2Object.q2.tc6 = testStatus;
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            });
+            PE2List.push(PE2Object);
+        });
+        res.render('pe2-checker', {
+            PE1List: PE2List
+        });
+    });
+};

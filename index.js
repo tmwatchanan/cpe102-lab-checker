@@ -122,7 +122,6 @@ app.get('/CPE-CMU-26/readme/:user', function (req, res) {
     // });
 });
 
-
 app.get('/cpe102-2560-2', function (req, res) {
     // res.send('You are at /github endpoint.');
     // user token
@@ -241,7 +240,7 @@ app.get('/cpe102-2560-2/practical-exam-1-repos', function (req, res) {
         req.connection.remoteAddress ||
         req.socket.remoteAddress ||
         req.connection.socket.remoteAddress).split(",")[0];
-    console.log("[IP:" + ip + "] watched /cpe102-2560-2/practical-exam-1-check endpoint");
+    console.log("[IP:" + ip + "] watched /cpe102-2560-2/practical-exam-1-repos endpoint");
     mainController.showPracticalExam1CheckFromGitHub(req, res);
 });
 
@@ -294,4 +293,13 @@ app.get('/cpe102-2560-2/practical-exam-2-check', function (req, res) {
         req.connection.socket.remoteAddress).split(",")[0];
     console.log("[IP:" + ip + "] watched /cpe102-2560-2/practical-exam-2-check endpoint");
     mainController.showPracticalExam2CheckFromDatabase(req, res);
+});
+
+app.get('/cpe102-2560-2/practical-exam-3-repos', function (req, res) {
+    var ip = (req.headers['x-forwarded-for'] ||
+        req.connection.remoteAddress ||
+        req.socket.remoteAddress ||
+        req.connection.socket.remoteAddress).split(",")[0];
+    console.log("[IP:" + ip + "] watched /cpe102-2560-2/practical-exam-3-repos endpoint");
+    mainController.showPracticalExam3CheckFromGitHub(req, res);
 });

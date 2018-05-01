@@ -680,3 +680,46 @@ exports.showPracticalExam2CheckFromDatabase = function (req, res) {
         });
     });
 };
+
+exports.showPracticalExam3CheckFromGitHub = function (req, res) {
+    github.authenticate({
+        type: 'token',
+        token: process.env.githubToken
+    });
+    let seriesOfCallback = [];
+    for (let p = 1; p <= 27; ++p) {
+        seriesOfCallback.push(getRepoFromOrgCallback(p));
+    }
+    let studentDict = {};
+    StudentInformation.forEach(function (student) {
+        studentDict[student.username.toLowerCase()] = student.student_id;
+    });
+    var PE3List = [];
+    async.series(seriesOfCallback, function (err, results) {
+        results.forEach(result => {
+            result.forEach(repo => {
+                if (repo.name.indexOf("PE34570012477") !== -1) {
+                    let PE3Object = {
+                        id: "",
+                        username: repo.name.split(/[-]+/).pop(),
+                        githubUrl: "",
+                        repo_name: repo.name,
+                        full_name: repo.full_name,
+                        repoUrl: ""
+                    };
+                    PE3Object.id = studentDict[PE3Object.username.toLowerCase()];
+                    PE3Object.githubUrl = "https://github.com/" + PE3Object.username;
+                    PE3Object.repoUrl = "https://github.com/cpe102-2560-2/" + PE3Object.repo_name;
+                    PE3List.push(PE3Object);
+                    if (PE3List.length == 111) {
+                        return res.render('pe3-checker-github', {
+                            PE3List: PE3List.sort(function (a, b) {
+                                return parseInt(a.id) - parseInt(b.id);
+                            })
+                        });
+                    }
+                }
+            });
+        });
+    });
+};

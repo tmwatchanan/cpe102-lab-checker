@@ -1,0 +1,47 @@
+<html>
+
+<head>
+    <title>Practical Exam 3 | CPE102-2560-2 | CPE CMU</title>
+</head>
+
+<body>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/public/css/main.css">
+
+    <h3>Practical Exam 3 | CPE102-2560-2</h3>
+
+    <table border="1">
+        <tr>
+            <th colspan="2">Student Info</th>
+            <th colspan="2">GitHub Repo</th>
+        </tr>
+        <tr>
+            <th>ID</th>
+            <th>Username</th>
+            <th>Repository</th>
+            <th>README.md</th>
+        </tr>
+
+        <% for (var i = 0; i < PE3List.length; i++) { %>
+            <tr>
+                <td>
+                    <%= PE3List[i].id %>
+                </td>
+                <td>
+                    <a href="<%= PE3List[i].githubUrl %>">
+                        <%= PE3List[i].username %>
+                    </a>
+                </td>
+                <td>
+                    <a href="<%= PE3List[i].repoUrl %>">
+                        <%= PE3List[i].repo_name %>
+                    </a>
+                </td>
+            </tr>
+            <% } %>
+    </table>
+
+</body>
+
+</html>

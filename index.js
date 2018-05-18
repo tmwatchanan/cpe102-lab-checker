@@ -303,3 +303,30 @@ app.get('/cpe102-2560-2/practical-exam-3-repos', function (req, res) {
     console.log("[IP:" + ip + "] watched /cpe102-2560-2/practical-exam-3-repos endpoint");
     mainController.showPracticalExam3CheckFromGitHub(req, res);
 });
+
+app.get('/cpe102-2560-2/lab-4-repos', function (req, res) {
+    var ip = (req.headers['x-forwarded-for'] ||
+        req.connection.remoteAddress ||
+        req.socket.remoteAddress ||
+        req.connection.socket.remoteAddress).split(",")[0];
+    console.log("[IP:" + ip + "] watched /cpe102-2560-2/lab-4-repos endpoint");
+    mainController.showLab4FromGitHub(req, res);
+});
+
+app.get('/cpe102-2560-2/lab-5-repos', function (req, res) {
+    var ip = (req.headers['x-forwarded-for'] ||
+        req.connection.remoteAddress ||
+        req.socket.remoteAddress ||
+        req.connection.socket.remoteAddress).split(",")[0];
+    console.log("[IP:" + ip + "] watched /cpe102-2560-2/lab-5-repos endpoint");
+    mainController.showLab5FromGitHub(req, res);
+});
+
+app.get('/cpe102-2560-2/lab-6-repos', function (req, res) {
+    var ip = (req.headers['x-forwarded-for'] ||
+        req.connection.remoteAddress ||
+        req.socket.remoteAddress ||
+        req.connection.socket.remoteAddress).split(",")[0];
+    console.log("[IP:" + ip + "] watched /cpe102-2560-2/lab-6-repos endpoint");
+    mainController.showLab6FromGitHub(req, res);
+});

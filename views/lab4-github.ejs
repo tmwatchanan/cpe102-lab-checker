@@ -1,7 +1,7 @@
 <html>
 
 <head>
-    <title>Practical Exam 3 | CPE102-2560-2 | CPE CMU</title>
+    <title>Lab 4 | CPE102-2560-2 | CPE CMU</title>
 </head>
 
 <body>
@@ -9,7 +9,7 @@
         crossorigin="anonymous"></script>
     <link rel="stylesheet" href="/public/css/main.css">
 
-    <h3>Practical Exam 3 | CPE102-2560-2</h3>
+    <h3>Lab 4 | CPE102-2560-2</h3>
 
     <table border="1">
         <tr>
@@ -23,22 +23,20 @@
             <th>README.md</th>
         </tr>
 
-        <% for (var i = 0; i < PE3List.length; i++) { %>
+        <% for (var i = 0; i < Lab4List.length; i++) { %>
             <tr>
                 <td>
-                    <%= PE3List[i].id %>
+                    <%= Lab4List[i].id %>
                 </td>
                 <td>
-                    <a href="<%= PE3List[i].githubUrl %>">
-                        <%= PE3List[i].username %>
+                    <a href="<%= Lab4List[i].githubUrl %>">
+                        <%= Lab4List[i].username %>
                     </a>
                 </td>
                 <td>
-                    <a href="<%= PE3List[i].repoUrl %>">
-                        <%= PE3List[i].repo_name %>
+                    <a href="<%= Lab4List[i].repoUrl %>">
+                        <%= Lab4List[i].repo_name %>
                     </a>
-                </td>
-                <td>
                 </td>
             </tr>
             <% } %>

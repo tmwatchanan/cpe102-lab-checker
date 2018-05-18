@@ -156,7 +156,7 @@ exports.showPracticalExam1CheckFromDatabase = function (req, res) {
             });
             PE1List.push(PE1Object);
         });
-        res.render('pe1-checker', {
+        return res.render('pe1-checker', {
             PE1List: PE1List
         });
     });
@@ -347,16 +347,14 @@ exports.showPracticalExam1CheckFromGitHub = function (req, res) {
                             PE1Object.buildUrl += PE1Object.username;
                         }
                         PE1List.push(PE1Object);
-                        if (PE1List.length == 111) {
-                            res.render('pe1-checker-github', {
-                                PE1List: PE1List.sort(function (a, b) {
-                                    return parseInt(a.id) - parseInt(b.id);
-                                })
-                            });
-                        }
                     });
                 }
             });
+        });
+        return res.render('pe1-checker-github', {
+            PE1List: PE1List.sort(function (a, b) {
+                return parseInt(a.id) - parseInt(b.id);
+            })
         });
     });
 };
@@ -445,7 +443,7 @@ exports.showLab6Check = function (req, res) {
             Lab6ResultList.push(Lab6Result);
         });
         var SortedLab6ResultList = Lab6ResultList.sort(function (a, b) { return a.id - b.id });
-        res.render('lab6-checker', {
+        return res.render('lab6-checker', {
             Lab6ResultList: SortedLab6ResultList
         });
     });
@@ -569,7 +567,7 @@ exports.showLab11Check = function (req, res) {
             Lab11ResultList.push(Lab11Result);
         });
         var SortedLab11ResultList = Lab11ResultList.sort(function (a, b) { return a.id - b.id });
-        res.render('lab11-checker', {
+        return res.render('lab11-checker', {
             Lab11ResultList: SortedLab11ResultList
         });
     });
@@ -675,7 +673,7 @@ exports.showPracticalExam2CheckFromDatabase = function (req, res) {
             });
             PE2List.push(PE2Object);
         });
-        res.render('pe2-checker', {
+        return res.render('pe2-checker', {
             PE1List: PE2List
         });
     });
@@ -705,21 +703,150 @@ exports.showPracticalExam3CheckFromGitHub = function (req, res) {
                         githubUrl: "",
                         repo_name: repo.name,
                         full_name: repo.full_name,
-                        repoUrl: ""
+                        repoUrl: "",
+                        readme_link: ""
                     };
                     PE3Object.id = studentDict[PE3Object.username.toLowerCase()];
                     PE3Object.githubUrl = "https://github.com/" + PE3Object.username;
                     PE3Object.repoUrl = "https://github.com/cpe102-2560-2/" + PE3Object.repo_name;
+                    // readme_link: '/CPE-CMU-26/readme/' + pullRequest.user.login
                     PE3List.push(PE3Object);
-                    if (PE3List.length == 111) {
-                        return res.render('pe3-checker-github', {
-                            PE3List: PE3List.sort(function (a, b) {
-                                return parseInt(a.id) - parseInt(b.id);
-                            })
-                        });
-                    }
                 }
             });
+        });
+        return res.render('pe3-checker-github', {
+            PE3List: PE3List.sort(function (a, b) {
+                return parseInt(a.id) - parseInt(b.id);
+            })
+        });
+    });
+};
+
+exports.showLab4FromGitHub = function (req, res) {
+    github.authenticate({
+        type: 'token',
+        token: process.env.githubToken
+    });
+    let seriesOfCallback = [];
+    for (let p = 1; p <= 27; ++p) {
+        seriesOfCallback.push(getRepoFromOrgCallback(p));
+    }
+    let studentDict = {};
+    StudentInformation.forEach(function (student) {
+        studentDict[student.username.toLowerCase()] = student.student_id;
+    });
+    var Lab4List = [];
+    async.series(seriesOfCallback, function (err, results) {
+        results.forEach(result => {
+            result.forEach(repo => {
+                if (repo.name.indexOf("lab4") !== -1) {
+                    let Lab4Object = {
+                        id: "",
+                        username: repo.name.split(/[-]+/).pop(),
+                        githubUrl: "",
+                        repo_name: repo.name,
+                        full_name: repo.full_name,
+                        repoUrl: "",
+                        readme_link: ""
+                    };
+                    Lab4Object.id = studentDict[Lab4Object.username.toLowerCase()];
+                    Lab4Object.githubUrl = "https://github.com/" + Lab4Object.username;
+                    Lab4Object.repoUrl = "https://github.com/cpe102-2560-2/" + Lab4Object.repo_name;
+                    // readme_link: '/CPE-CMU-26/readme/' + pullRequest.user.login
+                    Lab4List.push(Lab4Object);
+                }
+            });
+        });
+        return res.render('lab4-github', {
+            Lab4List: Lab4List.sort(function (a, b) {
+                return parseInt(a.id) - parseInt(b.id);
+            })
+        });
+    });
+};
+
+exports.showLab5FromGitHub = function (req, res) {
+    github.authenticate({
+        type: 'token',
+        token: process.env.githubToken
+    });
+    let seriesOfCallback = [];
+    for (let p = 1; p <= 27; ++p) {
+        seriesOfCallback.push(getRepoFromOrgCallback(p));
+    }
+    let studentDict = {};
+    StudentInformation.forEach(function (student) {
+        studentDict[student.username.toLowerCase()] = student.student_id;
+    });
+    var Lab5List = [];
+    async.series(seriesOfCallback, function (err, results) {
+        results.forEach(result => {
+            result.forEach(repo => {
+                if (repo.name.indexOf("lab-5") !== -1) {
+                    let Lab5Object = {
+                        id: "",
+                        username: repo.name.split(/[-]+/).pop(),
+                        githubUrl: "",
+                        repo_name: repo.name,
+                        full_name: repo.full_name,
+                        repoUrl: "",
+                        readme_link: ""
+                    };
+                    Lab5Object.id = studentDict[Lab5Object.username.toLowerCase()];
+                    Lab5Object.githubUrl = "https://github.com/" + Lab5Object.username;
+                    Lab5Object.repoUrl = "https://github.com/cpe102-2560-2/" + Lab5Object.repo_name;
+                    // readme_link: '/CPE-CMU-26/readme/' + pullRequest.user.login
+                    Lab5List.push(Lab5Object);
+                }
+            });
+        });
+        return res.render('lab5-github', {
+            Lab5List: Lab5List.sort(function (a, b) {
+                return parseInt(a.id) - parseInt(b.id);
+            })
+        });
+    });
+};
+
+exports.showLab6FromGitHub = function (req, res) {
+    github.authenticate({
+        type: 'token',
+        token: process.env.githubToken
+    });
+    let seriesOfCallback = [];
+    for (let p = 1; p <= 27; ++p) {
+        seriesOfCallback.push(getRepoFromOrgCallback(p));
+    }
+    let studentDict = {};
+    StudentInformation.forEach(function (student) {
+        studentDict[student.username.toLowerCase()] = student.student_id;
+    });
+    var Lab6List = [];
+    async.series(seriesOfCallback, function (err, results) {
+        results.forEach(result => {
+            result.forEach(repo => {
+                if (repo.name.indexOf("lab6") !== -1) {
+                    let Lab6Object = {
+                        id: "",
+                        username: repo.name.split(/[-]+/).pop(),
+                        githubUrl: "",
+                        repo_name: repo.name,
+                        full_name: repo.full_name,
+                        repoUrl: "",
+                        readme_link: ""
+                    };
+                    Lab6Object.id = studentDict[Lab6Object.username.toLowerCase()];
+                    Lab6Object.githubUrl = "https://github.com/" + Lab6Object.username;
+                    Lab6Object.repoUrl = "https://github.com/cpe102-2560-2/" + Lab6Object.repo_name;
+                    // readme_link: '/CPE-CMU-26/readme/' + pullRequest.user.login
+                    Lab6List.push(Lab6Object);
+                }
+            });
+        });
+        return res.render('lab6-github', {
+            Lab6List: Lab6List.sort(function (a, b) {
+                return parseInt(a.id) - parseInt(b.id);
+            })
         });
     });
 };
